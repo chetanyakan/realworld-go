@@ -1,17 +1,35 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
+### Go template
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+coverage.txt
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+dist/
+vendor/
 /node_modules
 /bower_components
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-*.launch
-.settings/
-
 
 #System Files
 .DS_Store
 Thumbs.db
+
+# IDEs and editors
+.project
+.classpath
+*.launch
+.settings/
+.vscode/
+.history/
+.idea/
