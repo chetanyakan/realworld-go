@@ -14,11 +14,11 @@ export GO111MODULE=on
 ASSETS_DIR ?= assets
 
 
-## Define the default target (make all)
+## Define the default target (make all).
 .PHONY: default
 default: all
 
-## Checks the code style, tests, builds and bundles the plugin.
+## Checks the code style, tests and builds the server.
 .PHONY: all
 all: check-style test build
 
@@ -44,6 +44,17 @@ gofmt:
 		fi; \
 	done
 	@echo "gofmt success\n"
+
+
+## Runs goimports against all packages.
+.PHONY: format
+format:
+ifneq ($(HAS_SERVER),)
+	env GO111MODULE=off $(GO) get golang.org/x/tools/cmd/goimports
+	@echo Formatting go files
+	@find . -type f -name "*.go" -not -path "./vendor/*" -exec goimports -w {} \;
+	@echo "formatted go files\n"
+endif
 
 
 ## Runs govet against all packages.
@@ -99,8 +110,8 @@ run: build
 
 
 ## Builds the server in DEBUG mode.
-.PHONY: server-debug
-server-debug:
+.PHONY: build-debug
+build-debug:
 	$(info DEBUG mode is on)
 	mkdir -p dist;
 	go build $(GO_BUILD_FLAGS) -gcflags "all=-N -l" -o ./dist/realworld-go .
@@ -116,7 +127,7 @@ test:
 .PHONY: coverage
 coverage:
 	$(GO) test $(GO_TEST_FLAGS) -coverprofile=coverage.txt ./...
-	$(GO) tool cover -html=server/coverage.txt
+	$(GO) tool cover -html=coverage.txt
 
 
 ## Removes all dependencies and build-artifacts.
@@ -129,4 +140,4 @@ clean:
 
 # Help documentation à la https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
-	@cat Makefile build/*.mk | grep -v '\.PHONY' |  grep -v '\help:' | grep -B1 -E '^[a-zA-Z0-9_.-]+:.*' | sed -e "s/:.*//" | sed -e "s/^## //" |  grep -v '\-\-' | sed '1!G;h;$$!d' | awk 'NR%2{printf "\033[36m%-30s\033[0m",$$0;next;}1' | sort
+	@cat Makefile | grep -v '\.PHONY' |  grep -v '\help:' | grep -B1 -E '^[a-zA-Z0-9_.-]+:.*' | sed -e "s/:.*//" | sed -e "s/^## //" |  grep -v '\-\-' | sed '1!G;h;$$!d' | awk 'NR%2{printf "\033[36m%-30s\033[0m",$$0;next;}1' | sort
