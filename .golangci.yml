@@ -42,14 +42,14 @@ linters:
 
 issues:
   exclude-rules:
-    - path: server/manifest.go
+    - path: util/util.go
       linters:
         - deadcode
         - unused
-        - varcheck
-    - path: server/util/hash.go
+    - path: datastore/main.go
       linters:
-        - gosec
+        - deadcode
+        - unused
     - path: _test\.go
       linters:
         - bodyclose

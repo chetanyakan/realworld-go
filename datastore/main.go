@@ -40,7 +40,6 @@ func New() (*SQLStore, error) {
 	}, nil
 }
 
-
 // queryer is an interface describing a resource that can query.
 //
 // It exactly matches sqlx.Queryer, existing simply to constrain sqlx usage to this file.

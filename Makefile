@@ -20,7 +20,7 @@ default: all
 
 ## Checks the code style, tests, builds and bundles the plugin.
 .PHONY: all
-all: check-style test server
+all: check-style test build
 
 
 ## Checks for style guide compliance.
@@ -32,7 +32,7 @@ check-style: gofmt govet golint
 .PHONY: gofmt
 gofmt:
 	@echo Running GOFMT
-	@for package in $$(go list ./server/...); do \
+	@for package in $$(go list ./...); do \
 		files=$$(go list -f '{{range .GoFiles}}{{$$.Dir}}/{{.}} {{end}}' $$package); \
 		if [ "$$files" ]; then \
 			gofmt_output=$$(gofmt -d -s $$files 2>&1); \
@@ -77,13 +77,11 @@ golint:
 ## Runs golangci-lint.
 .PHONY: golangci-lint
 golangci-lint:
-	@echo Checking for style guide compliance
-
 	@if ! [ -x "$$(command -v golangci-lint)" ]; then \
 		echo "golangci-lint is not installed. Please see https://github.com/golangci/golangci-lint#install for installation instructions."; \
 		exit 1; \
 	fi; \
-	@echo Running golangci-lint
+	echo Running golangci-lint
 	golangci-lint run ./...
 
 

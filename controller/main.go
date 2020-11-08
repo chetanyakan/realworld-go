@@ -11,14 +11,14 @@ import (
 )
 
 type Controller struct {
-	baseUrl       string
+	baseURL       string
 	templatesPath string
 	staticPath    string
 }
 
-func NewController(baseUrl, templatesPath, staticPath string) *Controller {
+func NewController(baseURL, templatesPath, staticPath string) *Controller {
 	return &Controller{
-		baseUrl,
+		baseURL,
 		templatesPath,
 		staticPath,
 	}
@@ -44,7 +44,7 @@ func (c *Controller) InitAPI() *mux.Router {
 }
 
 func (c *Controller) healthCheck(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode([]string{"OK"})
+	_ = json.NewEncoder(w).Encode([]string{"OK"})
 }
 
 func (c *Controller) withLogging(next http.Handler) http.Handler {
