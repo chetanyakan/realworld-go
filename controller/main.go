@@ -54,6 +54,7 @@ func (c *Controller) withLogging(next http.Handler) http.Handler {
 			"Host", r.Host,
 			"RequestURI", r.RequestURI,
 			"Method", r.Method,
+			"RemoteAddr", r.RemoteAddr,
 			"RequestDump", util.DumpRequest(r),
 		)
 
