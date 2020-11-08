@@ -7,6 +7,8 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+
+	"github.com/chetanyakan/realworld-go/util"
 )
 
 const (
@@ -117,7 +119,6 @@ func (sqlStore *SQLStore) execBuilder(e execer, b builder) (sql.Result, error) {
 func (sqlStore *SQLStore) finalizeTransaction(tx *sqlx.Tx) {
 	// Rollback returns sql.ErrTxDone if the transaction was already closed.
 	if err := tx.Rollback(); err != nil && err != sql.ErrTxDone {
-		// TODO: log.Errorf
-		fmt.Printf("Failed to rollback transaction; err: %v", err)
+		util.Logger.Printf("Failed to rollback transaction; err: %v", err)
 	}
 }

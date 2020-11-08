@@ -1,10 +1,10 @@
 > *Note: Delete this file before publishing your app!*
 
-# [Mobile Icons (iOS/Android)](https://github.com/gothinkster/realworld/tree/master/spec/mobile_icons)
+# [Mobile Icons (iOS/Android)](./spec/mobile_icons)
 
 ### Using the hosted API
 
-Simply point your [API requests](https://github.com/gothinkster/realworld/tree/master/api) to `https://conduit.productionready.io/api` and you're good to go!
+Simply point your [API requests](./api) to `https://conduit.productionready.io/api` and you're good to go!
 
 ### Styles/Templates
 
