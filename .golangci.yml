@@ -1,8 +1,17 @@
 run:
   timeout: 5m
   modules-download-mode: readonly
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - vendor/
+  skip-files:
+    - \.pb\.go$
 
 linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
   gofmt:
     simplify: true
   goimports:
@@ -41,6 +50,7 @@ linters:
     - whitespace
 
 issues:
+  exclude-use-default: false
   exclude-rules:
     - path: util/util.go
       linters:
